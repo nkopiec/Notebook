@@ -6,4 +6,5 @@ import pl.whitelines.entities.Notes;
 
 public interface NotesRepository extends CrudRepository<Notes, Long> {
 	public Notes findByIdAndTitle(Long id, String title);
+	public Iterable<Notes> findAll();
 }

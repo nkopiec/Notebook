@@ -15,4 +15,8 @@ public class NotesServiceImpl implements NotesService{
 	public Notes findOneNotes(Long id, String title) {
 		return notesRepository.findByIdAndTitle(id, title);
 	}
+	@Override
+	public Notes findAllNotes() {
+		return (Notes) notesRepository.findAll();
+	}
 }
