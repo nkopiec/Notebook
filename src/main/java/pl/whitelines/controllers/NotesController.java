@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.whitelines.DTO.LoginData;
-import pl.whitelines.entities.User;
-import pl.whitelines.services.UsersService;
+import pl.whitelines.DTO.TitleData;
+import pl.whitelines.entities.Notes;
+import pl.whitelines.services.NotesService;
 
 @RestController
-public class UsersController {
+public class NotesController {
 	@Autowired
-	private UsersService usersService;
+	private NotesService notesService;
 	
-	@PostMapping("/login")
-	public ResponseEntity<Void> login(@RequestBody LoginData loginData) {
-		User user = usersService.findUser(loginData.getLogin(), loginData.getPassword());
-		if (user == null) {
+	@PostMapping("/title")
+	public ResponseEntity<Void> title(@RequestBody TitleData titleData) {
+		Notes notes = notesService.findOneNotes(titleData.getId(), titleData.getTitle());
+		if (notes == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
-	}
+	}		
 }
