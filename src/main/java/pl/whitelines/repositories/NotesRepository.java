@@ -1,10 +1,11 @@
 package pl.whitelines.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
 
-import pl.whitelines.entities.Notes;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NotesRepository extends CrudRepository<Notes, Long> {
-	public Notes findByIdAndTitle(Long id, String title);
-	public Iterable<Notes> findAll();
+import pl.whitelines.entities.Note;
+
+public interface NotesRepository extends JpaRepository<Note, Long> {
+	public Optional<Note> findById(Long id);
 }

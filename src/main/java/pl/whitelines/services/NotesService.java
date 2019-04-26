@@ -1,11 +1,12 @@
 package pl.whitelines.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import pl.whitelines.entities.Notes;
+import pl.whitelines.entities.Note;
 @Service
 public interface NotesService {
-	public Notes findOneNotes(Long Id, String title);
-	public Notes findAllNotes();
-	
+	List<Note> findAll();
+	void create(Note note);
 }

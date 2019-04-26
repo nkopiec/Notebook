@@ -1,6 +1,5 @@
 package pl.whitelines.DTO;
 
-
 public class LoginData {
 	private String login;
 	private String password;
