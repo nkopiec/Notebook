@@ -17,10 +17,28 @@ public class NotesServiceImpl implements NotesService {
 	public List<Note> findAll() {
 		return notesRepository.findAll();
 	}
+	
+	@Override
+	public Note findOne(Long id) {
+		return notesRepository.findById(id).orElse(null);
+	}
 
 	@Override
 	public void create(Note note) {
 		note.setId(null);
 		notesRepository.save(note);
 	}
+	
+	@Override
+	public void save(Note note) {
+		note.setId(null);
+		notesRepository.save(note);
+	}
+	
+	@Override
+	public void delete(Note note) {
+		note.setId(null);
+		notesRepository.save(note);
+	}
+	
 }

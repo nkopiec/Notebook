@@ -9,4 +9,7 @@ import pl.whitelines.entities.Note;
 public interface NotesService {
 	List<Note> findAll();
 	void create(Note note);
+	void delete(Note note);
+	Note findOne(Long id);
+	void save(Note note);
 }
