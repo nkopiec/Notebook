@@ -27,6 +27,7 @@ import pl.whitelines.services.NotesService;
 public class NotesController {
 	@Autowired
 	private NotesService notesService;
+	private NotesRepository notesRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Note>> getAll() {
@@ -50,15 +51,24 @@ public class NotesController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateNote(@Valid @RequestBody Note note) {	
-		notesService.save(note);
-		return new ResponseEntity<>(HttpStatus.OK);
+	public Note updateNote(@RequestBody Note updateNote, @PathVariable Long id) {	
+		return notesRepository.findById(id)
+				.map(note -> {
+					note.setTitle(updateNote.getTitle());
+					note.setText(updateNote.getText());
+					return notesRepository.save(note);
+				})
+			.orElseGet(() -> {
+				updateNote.setId(id);
+				return notesRepository.save(updateNote);
+			});
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteNote(@RequestParam(value="id") Note note) {
-		notesService.delete(note);
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<Void> deleteNote(@PathVariable Note note) {
+		notesRepository.delete(note);
+
+		  return ResponseEntity.noContent().build();
 	}
 	
 }
