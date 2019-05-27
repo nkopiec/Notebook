@@ -36,9 +36,14 @@ public class NotesServiceImpl implements NotesService {
 	}
 	
 	@Override
-	public void delete(Note note) {
-		note.setId(null);
-		notesRepository.save(note);
+	public void delete(Long id) {
+		notesRepository.deleteById(id);
 	}
-	
+
+	@Override
+	public Note update(Note oldNote, Note updateNote) {
+		oldNote.setText(updateNote.getText());
+		oldNote.setTitle(updateNote.getTitle());
+		return notesRepository.save(oldNote);
+	}
 }

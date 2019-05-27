@@ -2,8 +2,6 @@ package pl.whitelines.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.whitelines.entities.Note;
-import pl.whitelines.entities.UpdateNote;
-import pl.whitelines.repositories.NotesRepository;
 import pl.whitelines.services.NotesService;
 
 @RestController
@@ -27,7 +22,6 @@ import pl.whitelines.services.NotesService;
 public class NotesController {
 	@Autowired
 	private NotesService notesService;
-	private NotesRepository notesRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Note>> getAll() {
@@ -51,24 +45,19 @@ public class NotesController {
 	}
 	
 	@PutMapping("/{id}")
-	public Note updateNote(@RequestBody Note updateNote, @PathVariable Long id) {	
-		return notesRepository.findById(id)
-				.map(note -> {
-					note.setTitle(updateNote.getTitle());
-					note.setText(updateNote.getText());
-					return notesRepository.save(note);
-				})
-			.orElseGet(() -> {
-				updateNote.setId(id);
-				return notesRepository.save(updateNote);
-			});
+	public ResponseEntity<Note> updateNote(@RequestBody Note updateNote, @PathVariable Long id) {	
+		Note note = notesService.findOne(id);
+		if (note != null) {
+			return new ResponseEntity<Note>(notesService.update(note, updateNote), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Note>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteNote(@PathVariable Note note) {
-		notesRepository.delete(note);
-
-		  return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
+		notesService.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }
