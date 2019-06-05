@@ -13,6 +13,7 @@ public class User {
 	private String login;
 	private String password;
 	private Boolean enabled;
+	private String role;
 
 	public Long getId() {
 		return id;
@@ -44,6 +45,14 @@ public class User {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	
