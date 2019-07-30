@@ -12,6 +12,7 @@ public class Note {
 	private Long id;
 	private String title;
 	private String text;
+
 	public Long getId() {
 		return id;
 	}
@@ -29,9 +30,5 @@ public class Note {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	
-	
-	
-	
+	}	
 }
