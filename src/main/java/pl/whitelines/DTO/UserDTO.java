@@ -10,7 +10,6 @@ public class UserDTO {
 	@Pattern(regexp="^[a-z0-9]+$", message="{Pattern.UserDTO.login.validation}")
 	private String login;
 	@Size(min=5, max=20, message="{Size.UserDTO.password.validation}")
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$", message="{Pattern.UserDTO.password.validation}")
 	private String password;
 	 
 	public String getLogin() {
